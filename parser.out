@@ -1,0 +1,131 @@
+Created by PLY version 3.4 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    IN
+    FOR
+    IF
+    TRANSFORM
+    AFFICHE
+    EXTENSION
+    MATRIX3
+    NUMBER
+    MATRIX4
+    FILE
+
+Grammar
+
+Rule 0     S' -> programme
+Rule 1     programme -> load_src
+Rule 2     load_src -> expression
+Rule 3     statement -> LOAD_SRC
+Rule 4     statement -> SAVE_DEST
+Rule 5     statement -> PRINT expression
+Rule 6     structure -> WHILE expression { programme }
+Rule 7     expression -> IDENTIFIER
+Rule 8     expression -> ( expression )
+Rule 9     assignation -> IDENTIFIER = expression
+
+Terminals, with rules where they appear
+
+(                    : 8
+)                    : 8
+=                    : 9
+AFFICHE              : 
+EXTENSION            : 
+FILE                 : 
+FOR                  : 
+IDENTIFIER           : 7 9
+IF                   : 
+IN                   : 
+LOAD_SRC             : 3
+MATRIX3              : 
+MATRIX4              : 
+NUMBER               : 
+PRINT                : 5
+SAVE_DEST            : 4
+TRANSFORM            : 
+WHILE                : 6
+error                : 
+{                    : 6
+}                    : 6
+
+Nonterminals, with rules where they appear
+
+assignation          : 
+expression           : 2 5 6 8 9
+load_src             : 1
+programme            : 6 0
+statement            : 
+structure            : 
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programme
+    (1) programme -> . load_src
+    (2) load_src -> . expression
+    (7) expression -> . IDENTIFIER
+    (8) expression -> . ( expression )
+
+    IDENTIFIER      shift and go to state 1
+    (               shift and go to state 3
+
+    load_src                       shift and go to state 4
+    programme                      shift and go to state 2
+    expression                     shift and go to state 5
+
+state 1
+
+    (7) expression -> IDENTIFIER .
+
+    )               reduce using rule 7 (expression -> IDENTIFIER .)
+    $end            reduce using rule 7 (expression -> IDENTIFIER .)
+
+
+state 2
+
+    (0) S' -> programme .
+
+
+
+state 3
+
+    (8) expression -> ( . expression )
+    (7) expression -> . IDENTIFIER
+    (8) expression -> . ( expression )
+
+    IDENTIFIER      shift and go to state 1
+    (               shift and go to state 3
+
+    expression                     shift and go to state 6
+
+state 4
+
+    (1) programme -> load_src .
+
+    $end            reduce using rule 1 (programme -> load_src .)
+
+
+state 5
+
+    (2) load_src -> expression .
+
+    $end            reduce using rule 2 (load_src -> expression .)
+
+
+state 6
+
+    (8) expression -> ( expression . )
+
+    )               shift and go to state 7
+
+
+state 7
+
+    (8) expression -> ( expression ) .
+
+    )               reduce using rule 8 (expression -> ( expression ) .)
+    $end            reduce using rule 8 (expression -> ( expression ) .)
+

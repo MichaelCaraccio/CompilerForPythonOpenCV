@@ -6,7 +6,7 @@ LOAD_SRC mondossier ./dossier1
 SAVE_DEST dossierDestination ./save
 
 for file in mondossier
-	AFFICHE file
+	DISPLAY file
 ```
 
 ## EXEMPLE 2
@@ -17,7 +17,7 @@ SAVE_DEST dossierDestination ./save
 
 for file in mondossier
 	if file EXTENSION == « png »
-		TRANSFORME file BlackandWhite
+		TRANSFORM file BLACKANDWHITE
 ```
 
 ## EXEMPLE 3
@@ -27,6 +27,6 @@ LOAD_SRC monimage image.png
 SAVE_DEST madestination imageDest.png
 
 MATRIX matrice3x3 = [{0,0,1},{0,0,-1},{0,0,-1}]
-TRANSFORME monimage matrice3x3
+TRANSFORM monimage matrice3x3
 ```
 

@@ -1,1 +1,4 @@
-LOAD_SRC monfichier fichier
+LOAD_SRC monfichier img.jpg;
+SAVE_DEST monfichier imgFinal.jpeg;
+FOR files IN monfichier;
+FOR files2 IN monfichier2

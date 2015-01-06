@@ -123,6 +123,22 @@ class PrintNode(Node):
     
 class WhileNode(Node):
     type = 'while'
+
+class LoadNode(Node):
+    type = 'load'
+
+class SaveNode(Node):
+    type = 'save'
+
+class ForNode(Node):
+    type = 'for'
+
+class FileNode(Node):
+    def __init__(self, file):
+        Node.__init__(self)
+        self.file = file
+    def __repr__(self):
+        return "%s" % (self.file)
     
 class EntryNode(Node):
     type = 'ENTRY'

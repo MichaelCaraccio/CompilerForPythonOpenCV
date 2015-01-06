@@ -7,22 +7,9 @@ from CompilerForPythonOpenCV.lex import tokens
 vars = {}
 
 def p_programme_statement(p):
-	''' programme : statement '''
-	p[0] = AST.ProgramNode(p[1])
-
-def p_programme_recursive(p):
-	''' programme : statement ';' programme '''
-	p[0] = AST.ProgramNode([p[1]]+p[3].children)
-
-#def p_statement(p):
-#	''' statement : assignation
-#		| structure '''
-#	p[0] = p[1]
-
-#def p_programme_statement(p):
-   # ''' programme : load save suiteRecursive'''
-    #print("programme_statement")
-    #p[0] = AST.ProgramNode([p[1],p[2],p[3]])
+    ''' programme : load save suiteRecursive'''
+    print("programme_statement")
+    p[0] = AST.ProgramNode([p[1],p[2],p[3]])
     #p[0] = AST.ProgramNode([p[1],p[2]]+p[3])
 
 
@@ -37,9 +24,7 @@ def p_save(p):
     p[0] = AST.SaveNode([p[2],AST.FileNode(p[3])])
 
 def p_statement(p):
-    '''statement : for
-        | load
-        | save
+    '''suiteRecursive : for
         | MATRIX3
         | MATRIX4
         | TRANSFORM

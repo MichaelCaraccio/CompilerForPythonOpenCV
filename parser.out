@@ -2,130 +2,285 @@ Created by PLY version 3.4 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    IN
-    FOR
-    IF
-    TRANSFORM
-    AFFICHE
+    WHILE
     EXTENSION
-    MATRIX3
+    PRINT
+    IF
     NUMBER
-    MATRIX4
-    FILE
 
 Grammar
 
 Rule 0     S' -> programme
-Rule 1     programme -> load_src
-Rule 2     load_src -> expression
-Rule 3     statement -> LOAD_SRC
-Rule 4     statement -> SAVE_DEST
-Rule 5     statement -> PRINT expression
-Rule 6     structure -> WHILE expression { programme }
-Rule 7     expression -> IDENTIFIER
-Rule 8     expression -> ( expression )
-Rule 9     assignation -> IDENTIFIER = expression
+Rule 1     programme -> statement
+Rule 2     programme -> statement ; programme
+Rule 3     load -> LOAD_SRC expression FILE
+Rule 4     save -> SAVE_DEST expression FILE
+Rule 5     statement -> for
+Rule 6     statement -> load
+Rule 7     statement -> save
+Rule 8     statement -> MATRIX3
+Rule 9     statement -> MATRIX4
+Rule 10    statement -> TRANSFORM
+Rule 11    statement -> DISPLAY
+Rule 12    for -> FOR expression IN expression
+Rule 13    expression -> IDENTIFIER
 
 Terminals, with rules where they appear
 
-(                    : 8
-)                    : 8
-=                    : 9
-AFFICHE              : 
+;                    : 2
+DISPLAY              : 11
 EXTENSION            : 
-FILE                 : 
-FOR                  : 
-IDENTIFIER           : 7 9
+FILE                 : 3 4
+FOR                  : 12
+IDENTIFIER           : 13
 IF                   : 
-IN                   : 
+IN                   : 12
 LOAD_SRC             : 3
-MATRIX3              : 
-MATRIX4              : 
+MATRIX3              : 8
+MATRIX4              : 9
 NUMBER               : 
-PRINT                : 5
+PRINT                : 
 SAVE_DEST            : 4
-TRANSFORM            : 
-WHILE                : 6
+TRANSFORM            : 10
+WHILE                : 
 error                : 
-{                    : 6
-}                    : 6
 
 Nonterminals, with rules where they appear
 
-assignation          : 
-expression           : 2 5 6 8 9
-load_src             : 1
-programme            : 6 0
-statement            : 
-structure            : 
+expression           : 3 4 12 12
+for                  : 5
+load                 : 6
+programme            : 2 0
+save                 : 7
+statement            : 1 2
 
 Parsing method: LALR
 
 state 0
 
     (0) S' -> . programme
-    (1) programme -> . load_src
-    (2) load_src -> . expression
-    (7) expression -> . IDENTIFIER
-    (8) expression -> . ( expression )
+    (1) programme -> . statement
+    (2) programme -> . statement ; programme
+    (5) statement -> . for
+    (6) statement -> . load
+    (7) statement -> . save
+    (8) statement -> . MATRIX3
+    (9) statement -> . MATRIX4
+    (10) statement -> . TRANSFORM
+    (11) statement -> . DISPLAY
+    (12) for -> . FOR expression IN expression
+    (3) load -> . LOAD_SRC expression FILE
+    (4) save -> . SAVE_DEST expression FILE
 
-    IDENTIFIER      shift and go to state 1
-    (               shift and go to state 3
+    MATRIX3         shift and go to state 10
+    MATRIX4         shift and go to state 3
+    TRANSFORM       shift and go to state 11
+    DISPLAY         shift and go to state 6
+    FOR             shift and go to state 9
+    LOAD_SRC        shift and go to state 5
+    SAVE_DEST       shift and go to state 7
 
-    load_src                       shift and go to state 4
-    programme                      shift and go to state 2
-    expression                     shift and go to state 5
+    load                           shift and go to state 1
+    save                           shift and go to state 8
+    statement                      shift and go to state 2
+    programme                      shift and go to state 4
+    for                            shift and go to state 12
 
 state 1
 
-    (7) expression -> IDENTIFIER .
+    (6) statement -> load .
 
-    )               reduce using rule 7 (expression -> IDENTIFIER .)
-    $end            reduce using rule 7 (expression -> IDENTIFIER .)
+    ;               reduce using rule 6 (statement -> load .)
+    $end            reduce using rule 6 (statement -> load .)
 
 
 state 2
+
+    (1) programme -> statement .
+    (2) programme -> statement . ; programme
+
+    $end            reduce using rule 1 (programme -> statement .)
+    ;               shift and go to state 13
+
+
+state 3
+
+    (9) statement -> MATRIX4 .
+
+    ;               reduce using rule 9 (statement -> MATRIX4 .)
+    $end            reduce using rule 9 (statement -> MATRIX4 .)
+
+
+state 4
 
     (0) S' -> programme .
 
 
 
-state 3
-
-    (8) expression -> ( . expression )
-    (7) expression -> . IDENTIFIER
-    (8) expression -> . ( expression )
-
-    IDENTIFIER      shift and go to state 1
-    (               shift and go to state 3
-
-    expression                     shift and go to state 6
-
-state 4
-
-    (1) programme -> load_src .
-
-    $end            reduce using rule 1 (programme -> load_src .)
-
-
 state 5
 
-    (2) load_src -> expression .
+    (3) load -> LOAD_SRC . expression FILE
+    (13) expression -> . IDENTIFIER
 
-    $end            reduce using rule 2 (load_src -> expression .)
+    IDENTIFIER      shift and go to state 15
 
+    expression                     shift and go to state 14
 
 state 6
 
-    (8) expression -> ( expression . )
+    (11) statement -> DISPLAY .
 
-    )               shift and go to state 7
+    ;               reduce using rule 11 (statement -> DISPLAY .)
+    $end            reduce using rule 11 (statement -> DISPLAY .)
 
 
 state 7
 
-    (8) expression -> ( expression ) .
+    (4) save -> SAVE_DEST . expression FILE
+    (13) expression -> . IDENTIFIER
 
-    )               reduce using rule 8 (expression -> ( expression ) .)
-    $end            reduce using rule 8 (expression -> ( expression ) .)
+    IDENTIFIER      shift and go to state 15
+
+    expression                     shift and go to state 16
+
+state 8
+
+    (7) statement -> save .
+
+    ;               reduce using rule 7 (statement -> save .)
+    $end            reduce using rule 7 (statement -> save .)
+
+
+state 9
+
+    (12) for -> FOR . expression IN expression
+    (13) expression -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 15
+
+    expression                     shift and go to state 17
+
+state 10
+
+    (8) statement -> MATRIX3 .
+
+    ;               reduce using rule 8 (statement -> MATRIX3 .)
+    $end            reduce using rule 8 (statement -> MATRIX3 .)
+
+
+state 11
+
+    (10) statement -> TRANSFORM .
+
+    ;               reduce using rule 10 (statement -> TRANSFORM .)
+    $end            reduce using rule 10 (statement -> TRANSFORM .)
+
+
+state 12
+
+    (5) statement -> for .
+
+    ;               reduce using rule 5 (statement -> for .)
+    $end            reduce using rule 5 (statement -> for .)
+
+
+state 13
+
+    (2) programme -> statement ; . programme
+    (1) programme -> . statement
+    (2) programme -> . statement ; programme
+    (5) statement -> . for
+    (6) statement -> . load
+    (7) statement -> . save
+    (8) statement -> . MATRIX3
+    (9) statement -> . MATRIX4
+    (10) statement -> . TRANSFORM
+    (11) statement -> . DISPLAY
+    (12) for -> . FOR expression IN expression
+    (3) load -> . LOAD_SRC expression FILE
+    (4) save -> . SAVE_DEST expression FILE
+
+    MATRIX3         shift and go to state 10
+    MATRIX4         shift and go to state 3
+    TRANSFORM       shift and go to state 11
+    DISPLAY         shift and go to state 6
+    FOR             shift and go to state 9
+    LOAD_SRC        shift and go to state 5
+    SAVE_DEST       shift and go to state 7
+
+    load                           shift and go to state 1
+    save                           shift and go to state 8
+    statement                      shift and go to state 2
+    programme                      shift and go to state 18
+    for                            shift and go to state 12
+
+state 14
+
+    (3) load -> LOAD_SRC expression . FILE
+
+    FILE            shift and go to state 19
+
+
+state 15
+
+    (13) expression -> IDENTIFIER .
+
+    ;               reduce using rule 13 (expression -> IDENTIFIER .)
+    $end            reduce using rule 13 (expression -> IDENTIFIER .)
+    IN              reduce using rule 13 (expression -> IDENTIFIER .)
+    FILE            reduce using rule 13 (expression -> IDENTIFIER .)
+
+
+state 16
+
+    (4) save -> SAVE_DEST expression . FILE
+
+    FILE            shift and go to state 20
+
+
+state 17
+
+    (12) for -> FOR expression . IN expression
+
+    IN              shift and go to state 21
+
+
+state 18
+
+    (2) programme -> statement ; programme .
+
+    $end            reduce using rule 2 (programme -> statement ; programme .)
+
+
+state 19
+
+    (3) load -> LOAD_SRC expression FILE .
+
+    ;               reduce using rule 3 (load -> LOAD_SRC expression FILE .)
+    $end            reduce using rule 3 (load -> LOAD_SRC expression FILE .)
+
+
+state 20
+
+    (4) save -> SAVE_DEST expression FILE .
+
+    ;               reduce using rule 4 (save -> SAVE_DEST expression FILE .)
+    $end            reduce using rule 4 (save -> SAVE_DEST expression FILE .)
+
+
+state 21
+
+    (12) for -> FOR expression IN . expression
+    (13) expression -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 15
+
+    expression                     shift and go to state 22
+
+state 22
+
+    (12) for -> FOR expression IN expression .
+
+    ;               reduce using rule 12 (for -> FOR expression IN expression .)
+    $end            reduce using rule 12 (for -> FOR expression IN expression .)
 

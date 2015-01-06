@@ -1,4 +1,5 @@
 import ply.lex as lex
+import re
 
 reserved_words = (
     'while',
@@ -8,7 +9,7 @@ reserved_words = (
     'in',
     'load_src',
     'save_dest',
-    'affiche',
+    'display',
     'extension',
     'transform'
 )
@@ -32,7 +33,8 @@ def t_MATRIX4(t):
     return t
 
 def t_FILE(t):
-
+    r'[A-Za-z_]\w*\.[A-Za-z]{3,4}'
+    print("FILE")
     return t
 
 # Traitement des fichiers à faire

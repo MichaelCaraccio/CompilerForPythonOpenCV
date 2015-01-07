@@ -142,6 +142,9 @@ class MatrixNode4(Node):
 class TransformNode(Node):
     type = 'transform'
 
+class DisplayNode(Node):
+    type = 'display'
+
 class FileNode(Node):
     def __init__(self, file):
         Node.__init__(self)

@@ -12,14 +12,15 @@ reserved_words = (
     'display',
     'extension',
     'transform',
-    'matrix3'
+    'matrix3',
+    'matrix4'
 )
 
 tokens = (
          'NUMBER',
          'IDENTIFIER',
          'MATRIX3FORM',
-         'MATRIX4',
+         'MATRIX4FORM',
          'FILE'
          ) + tuple(map(lambda s: s.upper(), reserved_words))
 
@@ -29,13 +30,12 @@ def t_MATRIX3FORM(t):
     r'\[(\{(\-?\d+\.?\d*),(\-?\d+\.?\d*),(\-?\d+\.?\d*)\}\,?){3}\]'
     return t
 
-def t_MATRIX4(t):
+def t_MATRIX4FORM(t):
     r'\[(\{(\-?\d+\.?\d*),(\-?\d+\.?\d*),(\-?\d+\.?\d*),(\-?\d+\.?\d*)\}\,?){4}\]'
     return t
 
 def t_FILE(t):
     r'[A-Za-z_]\w*\.[A-Za-z]{3,4}'
-    print("FILE")
     return t
 
 # Traitement des fichiers à faire

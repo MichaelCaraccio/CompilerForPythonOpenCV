@@ -28,12 +28,10 @@ def p_programme_recursive(p):
 
 def p_load(p):
     '''load : LOAD_SRC expression FILE'''
-    print("load")
     p[0] = AST.LoadNode([p[2],AST.FileNode(p[3])])
 
 def p_save(p):
     '''save : SAVE_DEST expression FILE'''
-    print("save")
     p[0] = AST.SaveNode([p[2],AST.FileNode(p[3])])
 
 def p_statement(p):
@@ -41,7 +39,7 @@ def p_statement(p):
         | load
         | save
         | matrix3
-        | MATRIX4
+        | matrix4
         | TRANSFORM
         | DISPLAY'''
     p[0] = p[1]
@@ -49,27 +47,31 @@ def p_statement(p):
 
 
 def p_matrix3(p):
-    '''matrix3 : matrix3_assign '''
-    p[0] = p[1]
+    '''matrix3 : matrix3_assign'''
+    p[0] = AST.MatrixNode3(p[1])
 
-    
+
 def p_matrix3_assign(p):
     '''matrix3_assign : MATRIX3 IDENTIFIER '=' MATRIX3FORM '''
-    print("ENTER MATRIX3")
     p[0] = AST.AssignNode([AST.TokenNode(p[2]),AST.TokenNode(p[4])])
-    print("p[2]", p[4])
+
+def p_matrix4(p):
+    '''matrix4 : matrix4_assign'''
+    p[0] = AST.MatrixNode4(p[1])
+
+
+def p_matrix4_assign(p):
+    '''matrix4_assign : MATRIX4 IDENTIFIER '=' MATRIX4FORM '''
+    p[0] = AST.AssignNode([AST.TokenNode(p[2]),AST.TokenNode(p[4])])
 
 
 def p_for(p):
     '''for : FOR expression IN expression'''
-    print("FOR")
-
     p[0] = AST.ForNode([p[2], p[4]])
 
 
 def p_expression_num(p):
     '''expression : IDENTIFIER'''
-    print("ExpressionNUM")
     p[0] = AST.TokenNode(p[1])
 
 def p_error(p):

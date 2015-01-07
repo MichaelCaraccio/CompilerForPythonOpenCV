@@ -133,6 +133,15 @@ class SaveNode(Node):
 class ForNode(Node):
     type = 'for'
 
+class MatrixNode3(Node):
+    type = 'matrix3'
+
+class MatrixNode4(Node):
+    type = 'matrix4'
+
+class TransformNode(Node):
+    type = 'transform'
+
 class FileNode(Node):
     def __init__(self, file):
         Node.__init__(self)

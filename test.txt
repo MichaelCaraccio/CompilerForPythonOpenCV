@@ -1,4 +1,5 @@
+FOR files IN monfichier;
 LOAD_SRC monfichier img.jpg;
 SAVE_DEST monfichier imgFinal.jpeg;
-FOR files IN monfichier;
-FOR files2 IN monfichier2
+FOR files2 IN monfichier2;
+MATRIX3 blup = [{0,0,1},{0,0,-1},{0,2,3}]

@@ -11,20 +11,21 @@ reserved_words = (
     'save_dest',
     'display',
     'extension',
-    'transform'
+    'transform',
+    'matrix3'
 )
 
 tokens = (
          'NUMBER',
          'IDENTIFIER',
-         'MATRIX3',
+         'MATRIX3FORM',
          'MATRIX4',
          'FILE'
          ) + tuple(map(lambda s: s.upper(), reserved_words))
 
 literals = '();={}'
 
-def t_MATRIX3(t):
+def t_MATRIX3FORM(t):
     r'\[(\{(\-?\d+\.?\d*),(\-?\d+\.?\d*),(\-?\d+\.?\d*)\}\,?){3}\]'
     return t
 

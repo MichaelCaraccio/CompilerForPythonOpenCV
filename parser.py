@@ -40,18 +40,31 @@ def p_statement(p):
     '''statement : for
         | load
         | save
-        | MATRIX3
+        | matrix3
         | MATRIX4
         | TRANSFORM
         | DISPLAY'''
     p[0] = p[1]
+
+
+
+def p_matrix3(p):
+    '''matrix3 : matrix3_assign '''
+    p[0] = p[1]
+
+    
+def p_matrix3_assign(p):
+    '''matrix3_assign : MATRIX3 IDENTIFIER '=' MATRIX3FORM '''
+    print("ENTER MATRIX3")
+    p[0] = AST.AssignNode([AST.TokenNode(p[2]),AST.TokenNode(p[4])])
+    print("p[2]", p[4])
+
 
 def p_for(p):
     '''for : FOR expression IN expression'''
     print("FOR")
 
     p[0] = AST.ForNode([p[2], p[4]])
-    print("p[0] = ", p[0])
 
 
 def p_expression_num(p):

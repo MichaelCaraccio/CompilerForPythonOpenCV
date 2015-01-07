@@ -2,11 +2,11 @@ Created by PLY version 3.4 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    WHILE
-    EXTENSION
     PRINT
-    IF
+    EXTENSION
     NUMBER
+    IF
+    WHILE
 
 Grammar
 
@@ -18,25 +18,29 @@ Rule 4     save -> SAVE_DEST expression FILE
 Rule 5     statement -> for
 Rule 6     statement -> load
 Rule 7     statement -> save
-Rule 8     statement -> MATRIX3
+Rule 8     statement -> matrix3
 Rule 9     statement -> MATRIX4
 Rule 10    statement -> TRANSFORM
 Rule 11    statement -> DISPLAY
-Rule 12    for -> FOR expression IN expression
-Rule 13    expression -> IDENTIFIER
+Rule 12    matrix3 -> matrix3_assign
+Rule 13    matrix3_assign -> MATRIX3 IDENTIFIER = MATRIX3FORM
+Rule 14    for -> FOR expression IN expression
+Rule 15    expression -> IDENTIFIER
 
 Terminals, with rules where they appear
 
 ;                    : 2
+=                    : 13
 DISPLAY              : 11
 EXTENSION            : 
 FILE                 : 3 4
-FOR                  : 12
-IDENTIFIER           : 13
+FOR                  : 14
+IDENTIFIER           : 13 15
 IF                   : 
-IN                   : 12
+IN                   : 14
 LOAD_SRC             : 3
-MATRIX3              : 8
+MATRIX3              : 13
+MATRIX3FORM          : 13
 MATRIX4              : 9
 NUMBER               : 
 PRINT                : 
@@ -47,9 +51,11 @@ error                :
 
 Nonterminals, with rules where they appear
 
-expression           : 3 4 12 12
+expression           : 3 4 14 14
 for                  : 5
 load                 : 6
+matrix3              : 8
+matrix3_assign       : 12
 programme            : 2 0
 save                 : 7
 statement            : 1 2
@@ -64,46 +70,33 @@ state 0
     (5) statement -> . for
     (6) statement -> . load
     (7) statement -> . save
-    (8) statement -> . MATRIX3
+    (8) statement -> . matrix3
     (9) statement -> . MATRIX4
     (10) statement -> . TRANSFORM
     (11) statement -> . DISPLAY
-    (12) for -> . FOR expression IN expression
+    (14) for -> . FOR expression IN expression
     (3) load -> . LOAD_SRC expression FILE
     (4) save -> . SAVE_DEST expression FILE
+    (12) matrix3 -> . matrix3_assign
+    (13) matrix3_assign -> . MATRIX3 IDENTIFIER = MATRIX3FORM
 
-    MATRIX3         shift and go to state 10
-    MATRIX4         shift and go to state 3
-    TRANSFORM       shift and go to state 11
-    DISPLAY         shift and go to state 6
-    FOR             shift and go to state 9
-    LOAD_SRC        shift and go to state 5
-    SAVE_DEST       shift and go to state 7
+    MATRIX4         shift and go to state 1
+    TRANSFORM       shift and go to state 13
+    DISPLAY         shift and go to state 7
+    FOR             shift and go to state 14
+    LOAD_SRC        shift and go to state 12
+    SAVE_DEST       shift and go to state 2
+    MATRIX3         shift and go to state 6
 
-    load                           shift and go to state 1
     save                           shift and go to state 8
-    statement                      shift and go to state 2
-    programme                      shift and go to state 4
-    for                            shift and go to state 12
+    programme                      shift and go to state 9
+    matrix3                        shift and go to state 3
+    statement                      shift and go to state 4
+    load                           shift and go to state 5
+    for                            shift and go to state 10
+    matrix3_assign                 shift and go to state 11
 
 state 1
-
-    (6) statement -> load .
-
-    ;               reduce using rule 6 (statement -> load .)
-    $end            reduce using rule 6 (statement -> load .)
-
-
-state 2
-
-    (1) programme -> statement .
-    (2) programme -> statement . ; programme
-
-    $end            reduce using rule 1 (programme -> statement .)
-    ;               shift and go to state 13
-
-
-state 3
 
     (9) statement -> MATRIX4 .
 
@@ -111,37 +104,54 @@ state 3
     $end            reduce using rule 9 (statement -> MATRIX4 .)
 
 
+state 2
+
+    (4) save -> SAVE_DEST . expression FILE
+    (15) expression -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 15
+
+    expression                     shift and go to state 16
+
+state 3
+
+    (8) statement -> matrix3 .
+
+    ;               reduce using rule 8 (statement -> matrix3 .)
+    $end            reduce using rule 8 (statement -> matrix3 .)
+
+
 state 4
 
-    (0) S' -> programme .
+    (1) programme -> statement .
+    (2) programme -> statement . ; programme
 
+    $end            reduce using rule 1 (programme -> statement .)
+    ;               shift and go to state 17
 
 
 state 5
 
-    (3) load -> LOAD_SRC . expression FILE
-    (13) expression -> . IDENTIFIER
+    (6) statement -> load .
 
-    IDENTIFIER      shift and go to state 15
+    ;               reduce using rule 6 (statement -> load .)
+    $end            reduce using rule 6 (statement -> load .)
 
-    expression                     shift and go to state 14
 
 state 6
+
+    (13) matrix3_assign -> MATRIX3 . IDENTIFIER = MATRIX3FORM
+
+    IDENTIFIER      shift and go to state 18
+
+
+state 7
 
     (11) statement -> DISPLAY .
 
     ;               reduce using rule 11 (statement -> DISPLAY .)
     $end            reduce using rule 11 (statement -> DISPLAY .)
 
-
-state 7
-
-    (4) save -> SAVE_DEST . expression FILE
-    (13) expression -> . IDENTIFIER
-
-    IDENTIFIER      shift and go to state 15
-
-    expression                     shift and go to state 16
 
 state 8
 
@@ -153,30 +163,11 @@ state 8
 
 state 9
 
-    (12) for -> FOR . expression IN expression
-    (13) expression -> . IDENTIFIER
+    (0) S' -> programme .
 
-    IDENTIFIER      shift and go to state 15
 
-    expression                     shift and go to state 17
 
 state 10
-
-    (8) statement -> MATRIX3 .
-
-    ;               reduce using rule 8 (statement -> MATRIX3 .)
-    $end            reduce using rule 8 (statement -> MATRIX3 .)
-
-
-state 11
-
-    (10) statement -> TRANSFORM .
-
-    ;               reduce using rule 10 (statement -> TRANSFORM .)
-    $end            reduce using rule 10 (statement -> TRANSFORM .)
-
-
-state 12
 
     (5) statement -> for .
 
@@ -184,7 +175,58 @@ state 12
     $end            reduce using rule 5 (statement -> for .)
 
 
+state 11
+
+    (12) matrix3 -> matrix3_assign .
+
+    ;               reduce using rule 12 (matrix3 -> matrix3_assign .)
+    $end            reduce using rule 12 (matrix3 -> matrix3_assign .)
+
+
+state 12
+
+    (3) load -> LOAD_SRC . expression FILE
+    (15) expression -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 15
+
+    expression                     shift and go to state 19
+
 state 13
+
+    (10) statement -> TRANSFORM .
+
+    ;               reduce using rule 10 (statement -> TRANSFORM .)
+    $end            reduce using rule 10 (statement -> TRANSFORM .)
+
+
+state 14
+
+    (14) for -> FOR . expression IN expression
+    (15) expression -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 15
+
+    expression                     shift and go to state 20
+
+state 15
+
+    (15) expression -> IDENTIFIER .
+
+    IN              reduce using rule 15 (expression -> IDENTIFIER .)
+    FILE            reduce using rule 15 (expression -> IDENTIFIER .)
+    ;               reduce using rule 15 (expression -> IDENTIFIER .)
+    $end            reduce using rule 15 (expression -> IDENTIFIER .)
+
+
+state 16
+
+    (4) save -> SAVE_DEST expression . FILE
+
+    FILE            shift and go to state 21
+
+
+state 17
 
     (2) programme -> statement ; . programme
     (1) programme -> . statement
@@ -192,75 +234,54 @@ state 13
     (5) statement -> . for
     (6) statement -> . load
     (7) statement -> . save
-    (8) statement -> . MATRIX3
+    (8) statement -> . matrix3
     (9) statement -> . MATRIX4
     (10) statement -> . TRANSFORM
     (11) statement -> . DISPLAY
-    (12) for -> . FOR expression IN expression
+    (14) for -> . FOR expression IN expression
     (3) load -> . LOAD_SRC expression FILE
     (4) save -> . SAVE_DEST expression FILE
+    (12) matrix3 -> . matrix3_assign
+    (13) matrix3_assign -> . MATRIX3 IDENTIFIER = MATRIX3FORM
 
-    MATRIX3         shift and go to state 10
-    MATRIX4         shift and go to state 3
-    TRANSFORM       shift and go to state 11
-    DISPLAY         shift and go to state 6
-    FOR             shift and go to state 9
-    LOAD_SRC        shift and go to state 5
-    SAVE_DEST       shift and go to state 7
+    MATRIX4         shift and go to state 1
+    TRANSFORM       shift and go to state 13
+    DISPLAY         shift and go to state 7
+    FOR             shift and go to state 14
+    LOAD_SRC        shift and go to state 12
+    SAVE_DEST       shift and go to state 2
+    MATRIX3         shift and go to state 6
 
-    load                           shift and go to state 1
     save                           shift and go to state 8
-    statement                      shift and go to state 2
-    programme                      shift and go to state 18
-    for                            shift and go to state 12
-
-state 14
-
-    (3) load -> LOAD_SRC expression . FILE
-
-    FILE            shift and go to state 19
-
-
-state 15
-
-    (13) expression -> IDENTIFIER .
-
-    ;               reduce using rule 13 (expression -> IDENTIFIER .)
-    $end            reduce using rule 13 (expression -> IDENTIFIER .)
-    IN              reduce using rule 13 (expression -> IDENTIFIER .)
-    FILE            reduce using rule 13 (expression -> IDENTIFIER .)
-
-
-state 16
-
-    (4) save -> SAVE_DEST expression . FILE
-
-    FILE            shift and go to state 20
-
-
-state 17
-
-    (12) for -> FOR expression . IN expression
-
-    IN              shift and go to state 21
-
+    programme                      shift and go to state 22
+    matrix3                        shift and go to state 3
+    statement                      shift and go to state 4
+    load                           shift and go to state 5
+    for                            shift and go to state 10
+    matrix3_assign                 shift and go to state 11
 
 state 18
 
-    (2) programme -> statement ; programme .
+    (13) matrix3_assign -> MATRIX3 IDENTIFIER . = MATRIX3FORM
 
-    $end            reduce using rule 2 (programme -> statement ; programme .)
+    =               shift and go to state 23
 
 
 state 19
 
-    (3) load -> LOAD_SRC expression FILE .
+    (3) load -> LOAD_SRC expression . FILE
 
-    ;               reduce using rule 3 (load -> LOAD_SRC expression FILE .)
-    $end            reduce using rule 3 (load -> LOAD_SRC expression FILE .)
+    FILE            shift and go to state 24
 
 
 state 20
+
+    (14) for -> FOR expression . IN expression
+
+    IN              shift and go to state 25
+
+
+state 21
 
     (4) save -> SAVE_DEST expression FILE .
 
@@ -268,19 +289,49 @@ state 20
     $end            reduce using rule 4 (save -> SAVE_DEST expression FILE .)
 
 
-state 21
+state 22
 
-    (12) for -> FOR expression IN . expression
-    (13) expression -> . IDENTIFIER
+    (2) programme -> statement ; programme .
+
+    $end            reduce using rule 2 (programme -> statement ; programme .)
+
+
+state 23
+
+    (13) matrix3_assign -> MATRIX3 IDENTIFIER = . MATRIX3FORM
+
+    MATRIX3FORM     shift and go to state 26
+
+
+state 24
+
+    (3) load -> LOAD_SRC expression FILE .
+
+    ;               reduce using rule 3 (load -> LOAD_SRC expression FILE .)
+    $end            reduce using rule 3 (load -> LOAD_SRC expression FILE .)
+
+
+state 25
+
+    (14) for -> FOR expression IN . expression
+    (15) expression -> . IDENTIFIER
 
     IDENTIFIER      shift and go to state 15
 
-    expression                     shift and go to state 22
+    expression                     shift and go to state 27
 
-state 22
+state 26
 
-    (12) for -> FOR expression IN expression .
+    (13) matrix3_assign -> MATRIX3 IDENTIFIER = MATRIX3FORM .
 
-    ;               reduce using rule 12 (for -> FOR expression IN expression .)
-    $end            reduce using rule 12 (for -> FOR expression IN expression .)
+    ;               reduce using rule 13 (matrix3_assign -> MATRIX3 IDENTIFIER = MATRIX3FORM .)
+    $end            reduce using rule 13 (matrix3_assign -> MATRIX3 IDENTIFIER = MATRIX3FORM .)
+
+
+state 27
+
+    (14) for -> FOR expression IN expression .
+
+    ;               reduce using rule 14 (for -> FOR expression IN expression .)
+    $end            reduce using rule 14 (for -> FOR expression IN expression .)
 

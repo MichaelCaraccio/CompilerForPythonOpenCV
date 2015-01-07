@@ -3,4 +3,7 @@ LOAD_SRC monfichier img.jpg;
 SAVE_DEST monfichier imgFinal.jpeg;
 FOR files2 IN monfichier2;
 MATRIX3 blup = [{0,0,1},{0,0,-1},{0,2,3}];
-MATRIX4 matrix4x4 = [{0,0,1,1},{0,0,-1,1},{0,2,3,1},{0,2,2,1}]
+MATRIX4 matrix4x4 = [{0,0,1,1},{0,0,-1,1},{0,2,3,1},{0,2,2,1}];
+TRANSFORM monImage blup;
+DISPLAY file;
+DISPLAY img.jpg

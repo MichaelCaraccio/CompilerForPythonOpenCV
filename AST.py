@@ -117,6 +117,9 @@ class OpNode(Node):
     
 class AssignNode(Node):
     type = '='
+
+class CompareNode(Node):
+    type = '=='
     
 class PrintNode(Node):
     type = 'print'
@@ -144,6 +147,9 @@ class TransformNode(Node):
 
 class DisplayNode(Node):
     type = 'display'
+
+class IfNode(Node):
+    type = 'if'
 
 class FileNode(Node):
     def __init__(self, file):

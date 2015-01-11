@@ -5,9 +5,9 @@ _tabversion = '3.2'
 
 _lr_method = 'LALR'
 
-_lr_signature = b'\xf8\xecK\x0f\x87q%,\xf11\xfe]ns\xd3K'
+_lr_signature = b'{\x18\xe2\x1b\xc3\x0c\xdd\x7fka\xae\xd1[n\x05\xf2'
     
-_lr_action_items = {'SAVE_DEST':([0,25,],[2,2,]),'FILE':([17,19,20,21,],[26,29,-20,30,]),';':([1,3,5,6,7,8,12,13,15,16,20,26,27,29,30,35,36,37,38,],[-4,-13,-15,-7,-6,-5,-8,25,-9,-3,-20,-18,-19,-11,-10,-17,-12,-14,-16,]),'MATRIX4FORM':([33,],[38,]),'MATRIX3FORM':([32,],[37,]),'MATRIX3':([0,25,],[10,10,]),'IDENTIFIER':([2,4,9,10,11,17,18,20,28,31,],[20,20,20,23,24,20,20,-20,20,20,]),'MATRIX4':([0,25,],[11,11,]),'DISPLAY':([0,25,],[17,17,]),'FOR':([0,25,],[9,9,]),'=':([23,24,],[32,33,]),'LOAD_SRC':([0,25,],[4,4,]),'IN':([20,22,],[-20,31,]),'$end':([1,3,5,6,7,8,12,13,14,15,16,20,26,27,29,30,34,35,36,37,38,],[-4,-13,-15,-7,-6,-5,-8,-1,0,-9,-3,-20,-18,-19,-11,-10,-2,-17,-12,-14,-16,]),'TRANSFORM':([0,25,],[18,18,]),}
+_lr_action_items = {'MATRIX3FORM':([36,],[42,]),'LOAD_SRC':([0,29,],[3,3,]),'MATRIX4FORM':([38,],[44,]),'MATRIX4':([0,29,],[10,10,]),'IF':([0,29,],[5,5,]),'COMPARE':([23,35,],[-23,41,]),'IDENTIFIER':([3,4,8,9,10,15,20,23,24,25,37,41,],[23,23,26,23,28,23,23,-23,23,23,23,23,]),'IN':([23,27,],[-23,37,]),'TRANSFORM':([0,29,],[4,4,]),';':([1,2,6,11,12,13,14,16,17,18,19,21,23,30,31,33,34,40,42,43,44,45,],[-16,-9,-10,-22,-5,-14,29,-6,-7,-8,-4,-3,-23,-20,-19,-11,-18,-12,-15,-13,-17,-21,]),'FILE':([15,22,23,32,],[31,33,-23,40,]),'$end':([1,2,6,7,11,12,13,14,16,17,18,19,21,23,30,31,33,34,39,40,42,43,44,45,],[-16,-9,-10,0,-22,-5,-14,-1,-6,-7,-8,-4,-3,-23,-20,-19,-11,-18,-2,-12,-15,-13,-17,-21,]),'EXTENSION':([5,],[25,]),'SAVE_DEST':([0,29,],[20,20,]),'EGAL':([26,28,],[36,38,]),'MATRIX3':([0,29,],[8,8,]),'FOR':([0,29,],[9,9,]),'DISPLAY':([0,29,],[15,15,]),}
 
 _lr_action = { }
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'load':([0,25,],[1,1,]),'statement':([0,25,],[13,13,]),'programme':([0,25,],[14,34,]),'matrix4_assign':([0,25,],[5,5,]),'matrix4':([0,25,],[6,6,]),'save':([0,25,],[8,8,]),'for':([0,25,],[16,16,]),'matrix3':([0,25,],[7,7,]),'matrix3_assign':([0,25,],[3,3,]),'display':([0,25,],[15,15,]),'expression':([2,4,9,17,18,28,31,],[19,21,22,27,28,35,36,]),'transform':([0,25,],[12,12,]),}
+_lr_goto_items = {'if_assign':([0,29,],[11,11,]),'expression':([3,4,9,15,20,24,25,37,41,],[22,24,27,30,32,34,35,43,45,]),'save':([0,29,],[12,12,]),'matrix4_assign':([0,29,],[1,1,]),'matrix4':([0,29,],[17,17,]),'for':([0,29,],[21,21,]),'display':([0,29,],[2,2,]),'matrix3':([0,29,],[16,16,]),'matrix3_assign':([0,29,],[13,13,]),'transform':([0,29,],[18,18,]),'if':([0,29,],[6,6,]),'load':([0,29,],[19,19,]),'programme':([0,29,],[7,39,]),'statement':([0,29,],[14,14,]),}
 
 _lr_goto = { }
 for _k, _v in _lr_goto_items.items():
@@ -35,15 +35,18 @@ _lr_productions = [
   ('statement -> matrix4','statement',1,'p_statement','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',33),
   ('statement -> transform','statement',1,'p_statement','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',34),
   ('statement -> display','statement',1,'p_statement','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',35),
-  ('load -> LOAD_SRC expression FILE','load',3,'p_load','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',39),
-  ('save -> SAVE_DEST expression FILE','save',3,'p_save','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',43),
-  ('for -> FOR expression IN expression','for',4,'p_for','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',47),
-  ('matrix3 -> matrix3_assign','matrix3',1,'p_matrix3','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',51),
-  ('matrix3_assign -> MATRIX3 IDENTIFIER = MATRIX3FORM','matrix3_assign',4,'p_matrix3_assign','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',56),
-  ('matrix4 -> matrix4_assign','matrix4',1,'p_matrix4','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',60),
-  ('matrix4_assign -> MATRIX4 IDENTIFIER = MATRIX4FORM','matrix4_assign',4,'p_matrix4_assign','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',65),
+  ('statement -> if','statement',1,'p_statement','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',36),
+  ('load -> LOAD_SRC expression FILE','load',3,'p_load','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',40),
+  ('save -> SAVE_DEST expression FILE','save',3,'p_save','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',45),
+  ('for -> FOR expression IN expression','for',4,'p_for','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',49),
+  ('matrix3 -> matrix3_assign','matrix3',1,'p_matrix3','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',53),
+  ('matrix3_assign -> MATRIX3 IDENTIFIER EGAL MATRIX3FORM','matrix3_assign',4,'p_matrix3_assign','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',57),
+  ('matrix4 -> matrix4_assign','matrix4',1,'p_matrix4','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',61),
+  ('matrix4_assign -> MATRIX4 IDENTIFIER EGAL MATRIX4FORM','matrix4_assign',4,'p_matrix4_assign','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',65),
   ('transform -> TRANSFORM expression expression','transform',3,'p_transform','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',69),
   ('display -> DISPLAY FILE','display',2,'p_display','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',73),
   ('display -> DISPLAY expression','display',2,'p_display','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',74),
-  ('expression -> IDENTIFIER','expression',1,'p_expression_num','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',79),
+  ('if_assign -> IF EXTENSION expression COMPARE expression','if_assign',5,'p_if_assign','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',78),
+  ('if -> if_assign','if',1,'p_if','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',82),
+  ('expression -> IDENTIFIER','expression',1,'p_expression_num','C:/Users/daniel.decarval/Documents/Inf3DLMb/Compilation/TPs_enCours/CompilerForPythonOpenCV/parser.py',86),
 ]

@@ -21,10 +21,20 @@ tokens = (
          'IDENTIFIER',
          'MATRIX3FORM',
          'MATRIX4FORM',
-         'FILE'
+         'FILE',
+         'COMPARE',
+         'EGAL'
          ) + tuple(map(lambda s: s.upper(), reserved_words))
 
-literals = '();={}'
+literals = '();{}://'
+
+def t_COMPARE(t):
+    r'=='
+    return t
+
+def t_EGAL(t):
+    r'='
+    return t
 
 def t_MATRIX3FORM(t):
     r'\[(\{(\-?\d+\.?\d*),(\-?\d+\.?\d*),(\-?\d+\.?\d*)\}\,?){3}\]'
@@ -35,7 +45,7 @@ def t_MATRIX4FORM(t):
     return t
 
 def t_FILE(t):
-    r'[A-Za-z_]\w*\.[A-Za-z]{3,4}'
+    r'\w[:][\\/].([A-Za-z0-9/\\]+)'
     return t
 
 # Traitement des fichiers à faire

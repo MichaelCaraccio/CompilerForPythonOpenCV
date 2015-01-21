@@ -1,5 +1,5 @@
-LOAD_SRC monfichier C:/maCouilleGauche;
+LOAD_SRC monfichier C:/csa2;
+SAVE_DEST monfichier C:/csa;
 FOR files2 IN mondossier;
     IF EXTENSION files2 == jpeg;
-MATRIX3 blup = [{0,0,1},{0,0,-1},{0,2,3}];
-SAVE_DEST monfichier C:/MaCOuilleDroite
+MATRIX3 blup = [{0,0,1},{0,0,-1},{0,2,3}]

@@ -15,25 +15,6 @@ def thread(tree):
     tree.thread(entry)
     return entry
 
-
-@addToClass(AST.WhileNode)
-def thread(self, lastNode):
-    beforeCond = lastNode
-    exitCond = self.children[0].thread(lastNode)
-    exitCond.addNext(self)
-    exitBody = self.children[1].thread(self)
-    exitBody.addNext(beforeCond.next[-1])
-    return self
-
-@addToClass(AST.ForNode)
-def thread(self, lastNode):
-    beforeCond = lastNode
-    exitCond = 'x'
-    exitCond.addNext(self)
-    exitBody = 'x'
-
-
-
 if __name__ == "__main__":
     from CompilerForPythonOpenCV.parser import parse
     import sys, os

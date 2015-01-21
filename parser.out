@@ -2,9 +2,9 @@ Created by PLY version 3.4 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    NUMBER
     WHILE
     PRINT
+    NUMBER
 
 Grammar
 
@@ -102,53 +102,50 @@ state 0
     (17) matrix4_assign -> . MATRIX4 IDENTIFIER EGAL MATRIX4FORM
     (21) if_assign -> . IF EXTENSION expression COMPARE expression
 
-    FOR             shift and go to state 9
-    LOAD_SRC        shift and go to state 3
-    SAVE_DEST       shift and go to state 20
+    FOR             shift and go to state 5
+    LOAD_SRC        shift and go to state 12
+    SAVE_DEST       shift and go to state 16
     TRANSFORM       shift and go to state 4
-    DISPLAY         shift and go to state 15
-    MATRIX3         shift and go to state 8
-    MATRIX4         shift and go to state 10
-    IF              shift and go to state 5
+    DISPLAY         shift and go to state 10
+    MATRIX3         shift and go to state 14
+    MATRIX4         shift and go to state 13
+    IF              shift and go to state 7
 
-    if_assign                      shift and go to state 11
-    save                           shift and go to state 12
-    matrix4_assign                 shift and go to state 1
+    programme                      shift and go to state 1
+    save                           shift and go to state 11
+    if_assign                      shift and go to state 6
+    transform                      shift and go to state 15
+    for                            shift and go to state 3
     matrix4                        shift and go to state 17
-    for                            shift and go to state 21
-    display                        shift and go to state 2
-    matrix3                        shift and go to state 16
-    matrix3_assign                 shift and go to state 13
-    transform                      shift and go to state 18
-    if                             shift and go to state 6
-    load                           shift and go to state 19
-    programme                      shift and go to state 7
-    statement                      shift and go to state 14
+    matrix4_assign                 shift and go to state 18
+    statement                      shift and go to state 8
+    matrix3                        shift and go to state 2
+    load                           shift and go to state 9
+    if                             shift and go to state 20
+    display                        shift and go to state 19
+    matrix3_assign                 shift and go to state 21
 
 state 1
 
-    (16) matrix4 -> matrix4_assign .
+    (0) S' -> programme .
 
-    ;               reduce using rule 16 (matrix4 -> matrix4_assign .)
-    $end            reduce using rule 16 (matrix4 -> matrix4_assign .)
 
 
 state 2
 
-    (9) statement -> display .
+    (6) statement -> matrix3 .
 
-    ;               reduce using rule 9 (statement -> display .)
-    $end            reduce using rule 9 (statement -> display .)
+    ;               reduce using rule 6 (statement -> matrix3 .)
+    $end            reduce using rule 6 (statement -> matrix3 .)
 
 
 state 3
 
-    (11) load -> LOAD_SRC . expression FILE
-    (23) expression -> . IDENTIFIER
+    (3) statement -> for .
 
-    IDENTIFIER      shift and go to state 23
+    ;               reduce using rule 3 (statement -> for .)
+    $end            reduce using rule 3 (statement -> for .)
 
-    expression                     shift and go to state 22
 
 state 4
 
@@ -157,53 +154,18 @@ state 4
 
     IDENTIFIER      shift and go to state 23
 
-    expression                     shift and go to state 24
+    expression                     shift and go to state 22
 
 state 5
-
-    (21) if_assign -> IF . EXTENSION expression COMPARE expression
-
-    EXTENSION       shift and go to state 25
-
-
-state 6
-
-    (10) statement -> if .
-
-    ;               reduce using rule 10 (statement -> if .)
-    $end            reduce using rule 10 (statement -> if .)
-
-
-state 7
-
-    (0) S' -> programme .
-
-
-
-state 8
-
-    (15) matrix3_assign -> MATRIX3 . IDENTIFIER EGAL MATRIX3FORM
-
-    IDENTIFIER      shift and go to state 26
-
-
-state 9
 
     (13) for -> FOR . expression IN expression
     (23) expression -> . IDENTIFIER
 
     IDENTIFIER      shift and go to state 23
 
-    expression                     shift and go to state 27
+    expression                     shift and go to state 24
 
-state 10
-
-    (17) matrix4_assign -> MATRIX4 . IDENTIFIER EGAL MATRIX4FORM
-
-    IDENTIFIER      shift and go to state 28
-
-
-state 11
+state 6
 
     (22) if -> if_assign .
 
@@ -211,7 +173,42 @@ state 11
     $end            reduce using rule 22 (if -> if_assign .)
 
 
-state 12
+state 7
+
+    (21) if_assign -> IF . EXTENSION expression COMPARE expression
+
+    EXTENSION       shift and go to state 25
+
+
+state 8
+
+    (1) programme -> statement .
+    (2) programme -> statement . ; programme
+
+    $end            reduce using rule 1 (programme -> statement .)
+    ;               shift and go to state 26
+
+
+state 9
+
+    (4) statement -> load .
+
+    ;               reduce using rule 4 (statement -> load .)
+    $end            reduce using rule 4 (statement -> load .)
+
+
+state 10
+
+    (19) display -> DISPLAY . FILE
+    (20) display -> DISPLAY . expression
+    (23) expression -> . IDENTIFIER
+
+    FILE            shift and go to state 27
+    IDENTIFIER      shift and go to state 23
+
+    expression                     shift and go to state 28
+
+state 11
 
     (5) statement -> save .
 
@@ -219,41 +216,45 @@ state 12
     $end            reduce using rule 5 (statement -> save .)
 
 
+state 12
+
+    (11) load -> LOAD_SRC . expression FILE
+    (23) expression -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 23
+
+    expression                     shift and go to state 29
+
 state 13
 
-    (14) matrix3 -> matrix3_assign .
+    (17) matrix4_assign -> MATRIX4 . IDENTIFIER EGAL MATRIX4FORM
 
-    ;               reduce using rule 14 (matrix3 -> matrix3_assign .)
-    $end            reduce using rule 14 (matrix3 -> matrix3_assign .)
+    IDENTIFIER      shift and go to state 30
 
 
 state 14
 
-    (1) programme -> statement .
-    (2) programme -> statement . ; programme
+    (15) matrix3_assign -> MATRIX3 . IDENTIFIER EGAL MATRIX3FORM
 
-    $end            reduce using rule 1 (programme -> statement .)
-    ;               shift and go to state 29
+    IDENTIFIER      shift and go to state 31
 
 
 state 15
 
-    (19) display -> DISPLAY . FILE
-    (20) display -> DISPLAY . expression
-    (23) expression -> . IDENTIFIER
+    (8) statement -> transform .
 
-    FILE            shift and go to state 31
-    IDENTIFIER      shift and go to state 23
+    ;               reduce using rule 8 (statement -> transform .)
+    $end            reduce using rule 8 (statement -> transform .)
 
-    expression                     shift and go to state 30
 
 state 16
 
-    (6) statement -> matrix3 .
+    (12) save -> SAVE_DEST . expression FILE
+    (23) expression -> . IDENTIFIER
 
-    ;               reduce using rule 6 (statement -> matrix3 .)
-    $end            reduce using rule 6 (statement -> matrix3 .)
+    IDENTIFIER      shift and go to state 23
 
+    expression                     shift and go to state 32
 
 state 17
 
@@ -265,43 +266,44 @@ state 17
 
 state 18
 
-    (8) statement -> transform .
+    (16) matrix4 -> matrix4_assign .
 
-    ;               reduce using rule 8 (statement -> transform .)
-    $end            reduce using rule 8 (statement -> transform .)
+    ;               reduce using rule 16 (matrix4 -> matrix4_assign .)
+    $end            reduce using rule 16 (matrix4 -> matrix4_assign .)
 
 
 state 19
 
-    (4) statement -> load .
+    (9) statement -> display .
 
-    ;               reduce using rule 4 (statement -> load .)
-    $end            reduce using rule 4 (statement -> load .)
+    ;               reduce using rule 9 (statement -> display .)
+    $end            reduce using rule 9 (statement -> display .)
 
 
 state 20
 
-    (12) save -> SAVE_DEST . expression FILE
-    (23) expression -> . IDENTIFIER
+    (10) statement -> if .
 
-    IDENTIFIER      shift and go to state 23
+    ;               reduce using rule 10 (statement -> if .)
+    $end            reduce using rule 10 (statement -> if .)
 
-    expression                     shift and go to state 32
 
 state 21
 
-    (3) statement -> for .
+    (14) matrix3 -> matrix3_assign .
 
-    ;               reduce using rule 3 (statement -> for .)
-    $end            reduce using rule 3 (statement -> for .)
+    ;               reduce using rule 14 (matrix3 -> matrix3_assign .)
+    $end            reduce using rule 14 (matrix3 -> matrix3_assign .)
 
 
 state 22
 
-    (11) load -> LOAD_SRC expression . FILE
+    (18) transform -> TRANSFORM expression . expression
+    (23) expression -> . IDENTIFIER
 
-    FILE            shift and go to state 33
+    IDENTIFIER      shift and go to state 23
 
+    expression                     shift and go to state 33
 
 state 23
 
@@ -309,20 +311,18 @@ state 23
 
     ;               reduce using rule 23 (expression -> IDENTIFIER .)
     $end            reduce using rule 23 (expression -> IDENTIFIER .)
-    IDENTIFIER      reduce using rule 23 (expression -> IDENTIFIER .)
-    IN              reduce using rule 23 (expression -> IDENTIFIER .)
-    FILE            reduce using rule 23 (expression -> IDENTIFIER .)
     COMPARE         reduce using rule 23 (expression -> IDENTIFIER .)
+    IDENTIFIER      reduce using rule 23 (expression -> IDENTIFIER .)
+    FILE            reduce using rule 23 (expression -> IDENTIFIER .)
+    IN              reduce using rule 23 (expression -> IDENTIFIER .)
 
 
 state 24
 
-    (18) transform -> TRANSFORM expression . expression
-    (23) expression -> . IDENTIFIER
+    (13) for -> FOR expression . IN expression
 
-    IDENTIFIER      shift and go to state 23
+    IN              shift and go to state 34
 
-    expression                     shift and go to state 34
 
 state 25
 
@@ -334,27 +334,6 @@ state 25
     expression                     shift and go to state 35
 
 state 26
-
-    (15) matrix3_assign -> MATRIX3 IDENTIFIER . EGAL MATRIX3FORM
-
-    EGAL            shift and go to state 36
-
-
-state 27
-
-    (13) for -> FOR expression . IN expression
-
-    IN              shift and go to state 37
-
-
-state 28
-
-    (17) matrix4_assign -> MATRIX4 IDENTIFIER . EGAL MATRIX4FORM
-
-    EGAL            shift and go to state 38
-
-
-state 29
 
     (2) programme -> statement ; . programme
     (1) programme -> . statement
@@ -380,30 +359,38 @@ state 29
     (17) matrix4_assign -> . MATRIX4 IDENTIFIER EGAL MATRIX4FORM
     (21) if_assign -> . IF EXTENSION expression COMPARE expression
 
-    FOR             shift and go to state 9
-    LOAD_SRC        shift and go to state 3
-    SAVE_DEST       shift and go to state 20
+    FOR             shift and go to state 5
+    LOAD_SRC        shift and go to state 12
+    SAVE_DEST       shift and go to state 16
     TRANSFORM       shift and go to state 4
-    DISPLAY         shift and go to state 15
-    MATRIX3         shift and go to state 8
-    MATRIX4         shift and go to state 10
-    IF              shift and go to state 5
+    DISPLAY         shift and go to state 10
+    MATRIX3         shift and go to state 14
+    MATRIX4         shift and go to state 13
+    IF              shift and go to state 7
 
-    if_assign                      shift and go to state 11
-    save                           shift and go to state 12
-    matrix4_assign                 shift and go to state 1
+    programme                      shift and go to state 36
+    save                           shift and go to state 11
+    if_assign                      shift and go to state 6
+    transform                      shift and go to state 15
+    for                            shift and go to state 3
     matrix4                        shift and go to state 17
-    for                            shift and go to state 21
-    display                        shift and go to state 2
-    matrix3                        shift and go to state 16
-    matrix3_assign                 shift and go to state 13
-    transform                      shift and go to state 18
-    if                             shift and go to state 6
-    load                           shift and go to state 19
-    programme                      shift and go to state 39
-    statement                      shift and go to state 14
+    matrix4_assign                 shift and go to state 18
+    statement                      shift and go to state 8
+    matrix3                        shift and go to state 2
+    load                           shift and go to state 9
+    if                             shift and go to state 20
+    display                        shift and go to state 19
+    matrix3_assign                 shift and go to state 21
 
-state 30
+state 27
+
+    (19) display -> DISPLAY FILE .
+
+    ;               reduce using rule 19 (display -> DISPLAY FILE .)
+    $end            reduce using rule 19 (display -> DISPLAY FILE .)
+
+
+state 28
 
     (20) display -> DISPLAY expression .
 
@@ -411,12 +398,25 @@ state 30
     $end            reduce using rule 20 (display -> DISPLAY expression .)
 
 
+state 29
+
+    (11) load -> LOAD_SRC expression . FILE
+
+    FILE            shift and go to state 37
+
+
+state 30
+
+    (17) matrix4_assign -> MATRIX4 IDENTIFIER . EGAL MATRIX4FORM
+
+    EGAL            shift and go to state 38
+
+
 state 31
 
-    (19) display -> DISPLAY FILE .
+    (15) matrix3_assign -> MATRIX3 IDENTIFIER . EGAL MATRIX3FORM
 
-    ;               reduce using rule 19 (display -> DISPLAY FILE .)
-    $end            reduce using rule 19 (display -> DISPLAY FILE .)
+    EGAL            shift and go to state 39
 
 
 state 32
@@ -428,55 +428,55 @@ state 32
 
 state 33
 
-    (11) load -> LOAD_SRC expression FILE .
-
-    ;               reduce using rule 11 (load -> LOAD_SRC expression FILE .)
-    $end            reduce using rule 11 (load -> LOAD_SRC expression FILE .)
-
-
-state 34
-
     (18) transform -> TRANSFORM expression expression .
 
     ;               reduce using rule 18 (transform -> TRANSFORM expression expression .)
     $end            reduce using rule 18 (transform -> TRANSFORM expression expression .)
 
 
-state 35
-
-    (21) if_assign -> IF EXTENSION expression . COMPARE expression
-
-    COMPARE         shift and go to state 41
-
-
-state 36
-
-    (15) matrix3_assign -> MATRIX3 IDENTIFIER EGAL . MATRIX3FORM
-
-    MATRIX3FORM     shift and go to state 42
-
-
-state 37
+state 34
 
     (13) for -> FOR expression IN . expression
     (23) expression -> . IDENTIFIER
 
     IDENTIFIER      shift and go to state 23
 
-    expression                     shift and go to state 43
+    expression                     shift and go to state 41
+
+state 35
+
+    (21) if_assign -> IF EXTENSION expression . COMPARE expression
+
+    COMPARE         shift and go to state 42
+
+
+state 36
+
+    (2) programme -> statement ; programme .
+
+    $end            reduce using rule 2 (programme -> statement ; programme .)
+
+
+state 37
+
+    (11) load -> LOAD_SRC expression FILE .
+
+    ;               reduce using rule 11 (load -> LOAD_SRC expression FILE .)
+    $end            reduce using rule 11 (load -> LOAD_SRC expression FILE .)
+
 
 state 38
 
     (17) matrix4_assign -> MATRIX4 IDENTIFIER EGAL . MATRIX4FORM
 
-    MATRIX4FORM     shift and go to state 44
+    MATRIX4FORM     shift and go to state 43
 
 
 state 39
 
-    (2) programme -> statement ; programme .
+    (15) matrix3_assign -> MATRIX3 IDENTIFIER EGAL . MATRIX3FORM
 
-    $end            reduce using rule 2 (programme -> statement ; programme .)
+    MATRIX3FORM     shift and go to state 44
 
 
 state 40
@@ -489,6 +489,14 @@ state 40
 
 state 41
 
+    (13) for -> FOR expression IN expression .
+
+    ;               reduce using rule 13 (for -> FOR expression IN expression .)
+    $end            reduce using rule 13 (for -> FOR expression IN expression .)
+
+
+state 42
+
     (21) if_assign -> IF EXTENSION expression COMPARE . expression
     (23) expression -> . IDENTIFIER
 
@@ -496,28 +504,20 @@ state 41
 
     expression                     shift and go to state 45
 
-state 42
-
-    (15) matrix3_assign -> MATRIX3 IDENTIFIER EGAL MATRIX3FORM .
-
-    ;               reduce using rule 15 (matrix3_assign -> MATRIX3 IDENTIFIER EGAL MATRIX3FORM .)
-    $end            reduce using rule 15 (matrix3_assign -> MATRIX3 IDENTIFIER EGAL MATRIX3FORM .)
-
-
 state 43
-
-    (13) for -> FOR expression IN expression .
-
-    ;               reduce using rule 13 (for -> FOR expression IN expression .)
-    $end            reduce using rule 13 (for -> FOR expression IN expression .)
-
-
-state 44
 
     (17) matrix4_assign -> MATRIX4 IDENTIFIER EGAL MATRIX4FORM .
 
     ;               reduce using rule 17 (matrix4_assign -> MATRIX4 IDENTIFIER EGAL MATRIX4FORM .)
     $end            reduce using rule 17 (matrix4_assign -> MATRIX4 IDENTIFIER EGAL MATRIX4FORM .)
+
+
+state 44
+
+    (15) matrix3_assign -> MATRIX3 IDENTIFIER EGAL MATRIX3FORM .
+
+    ;               reduce using rule 15 (matrix3_assign -> MATRIX3 IDENTIFIER EGAL MATRIX3FORM .)
+    $end            reduce using rule 15 (matrix3_assign -> MATRIX3 IDENTIFIER EGAL MATRIX3FORM .)
 
 
 state 45

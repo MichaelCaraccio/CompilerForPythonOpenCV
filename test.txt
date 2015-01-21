@@ -3,4 +3,5 @@ SAVE_DEST monfichier C:/csa;
 FOR files2 IN mondossier;
     IF EXTENSION files2 == jpeg;
         DISPLAY file2;
-MATRIX3 blup = [{0,0,1},{0,0,-1},{0,2,3}]
+MATRIX3 blup = [{0,0,1},{0,0,-1},{0,2,3}];
+TRANSFORM monfichier blup

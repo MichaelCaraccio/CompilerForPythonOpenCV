@@ -4,8 +4,6 @@ import CompilerForPythonOpenCV.AST as AST
 
 from CompilerForPythonOpenCV.lex import tokens
 
-vars = {}
-
 def p_programme_statement(p):
 	''' programme : statement '''
 	p[0] = AST.ProgramNode(p[1])
@@ -13,17 +11,6 @@ def p_programme_statement(p):
 def p_programme_recursive(p):
 	''' programme : statement ';' programme '''
 	p[0] = AST.ProgramNode([p[1]]+p[3].children)
-
-#def p_statement(p):
-#	''' statement : assignation
-#		| structure '''
-#	p[0] = p[1]
-
-#def p_programme_statement(p):
-   # ''' programme : load save suiteRecursive'''
-    #print("programme_statement")
-    #p[0] = AST.ProgramNode([p[1],p[2],p[3]])
-    #p[0] = AST.ProgramNode([p[1],p[2]]+p[3])
 
 def p_statement(p):
     '''statement : for
@@ -38,7 +25,6 @@ def p_statement(p):
 
 def p_load(p):
     '''load : LOAD_SRC expression FILE'''
-    print(p[3])
     p[0] = AST.LoadNode([p[2],AST.FileNode(p[3])])
 
 def p_save(p):
@@ -100,7 +86,6 @@ if __name__ == "__main__":
     import os
     prog = open(sys.argv[1]).read()
     result = yacc.parse(prog)
-    print (result)
     graph = result.makegraphicaltree()
     name = os.path.splitext(sys.argv[1])[0]+'-ast.pdf'
     graph.write_pdf(name)

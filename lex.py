@@ -2,8 +2,6 @@ import ply.lex as lex
 import re
 
 reserved_words = (
-    'while',
-    'print',
     'for',
     'if',
     'in',
@@ -17,7 +15,6 @@ reserved_words = (
 )
 
 tokens = (
-         'NUMBER',
          'IDENTIFIER',
          'MATRIX3FORM',
          'MATRIX4FORM',
@@ -47,18 +44,6 @@ def t_MATRIX4FORM(t):
 def t_FILE(t):
     r'\w[:][\\/].([A-Za-z0-9/\\]+)'
     return t
-
-# Traitement des fichiers à faire
-
-def t_NUMBER(t):
-    r'\d+(\.\d+)?'
-    try:
-        t.value = float(t.value)
-    except ValueError:
-        print("Line %d: Problem while parsing %s!" % (t.lineno, t.value))
-        t.value = 0
-    return t
-
 
 def t_IDENTIFIER(t):
     r'[A-Za-z_.]\w*'

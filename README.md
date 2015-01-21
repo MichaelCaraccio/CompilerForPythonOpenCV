@@ -26,7 +26,7 @@ Charger uniquement une image et lui appliquer une matrice de transformation quel
 LOAD_SRC monimage image.png
 SAVE_DEST madestination imageDest.png
 
-MATRIX matrice3x3 = [{0,0,1},{0,0,-1},{0,0,-1}]
+MATRIX matrice3x3 = [[0,0,1],[0,0,-1],[0,0,-1]]
 TRANSFORM monimage matrice3x3
 ```
 

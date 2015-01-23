@@ -44,8 +44,9 @@ LOAD_SRC mondossier ./dossier1
 SAVE_DEST dossierDestination ./save
 
 for file in mondossier
-	if file EXTENSION == « png »
-		TRANSFORM file BLACKANDWHITE
+	if file EXTENSION == "png"
+		MATRIX matrice3x3 = [[0,0,1],[0,0,-1],[0,0,-1]]
+		TRANSFORM file matrice3x3
 ```
 
 ## EXEMPLE 3

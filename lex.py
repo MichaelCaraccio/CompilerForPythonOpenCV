@@ -42,8 +42,7 @@ def t_MATRIX5FORM(t):
     return t
 
 def t_FILE(t):
-    #r'\w[:][\\/].([A-Za-z0-9/\\]+)'
-    r'[\\/].([A-Za-z0-9/\\_. ]+)'
+    r'[A-Za-z]?[\\:/].([A-Za-z0-9/\\_. ]+)'
     return t
 
 def t_IDENTIFIER(t):

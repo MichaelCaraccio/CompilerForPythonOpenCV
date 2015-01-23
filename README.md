@@ -45,8 +45,8 @@ SAVE_DEST dossierDestination /Users/michaelcaraccio/Desktop/images/dest;
 
 for file in mondossier;
     if EXTENSION file == jpg;
-		matrix3 blup = [[-1, -1, -1],[-1, 8, -1],[-1, -1, -1]];
-		TRANSFORM file matrice3x3;
+		MATRIX3 mymatrix = [[-1, -1, -1],[-1, 8, -1],[-1, -1, -1]];
+		TRANSFORM file mymatrix;
 		DISPLAY file
 ```
 
@@ -86,12 +86,36 @@ Si l'on compile le fichier python et que l'on l'execute, nous obtenons ceci :
 
 
 ## EXEMPLE 3
-Charger uniquement une image et lui appliquer une matrice de transformation quelconque
+Charger un dossier contenant des images et lui appliquer une matrice de transformation 5x5. Les images transformées se trouveront dans le dossier de destination spécifié
 ```
-LOAD_SRC monimage image.png
-SAVE_DEST madestination imageDest.png
+LOAD_SRC mondossier  /Users/michaelcaraccio/Desktop/images/sources;
+SAVE_DEST mondossierdest /Users/michaelcaraccio/Desktop/images/dest;
 
-MATRIX matrice3x3 = [[0,0,1],[0,0,-1],[0,0,-1]]
-TRANSFORM monimage matrice3x3
+FOR files2 IN mondossier;
+    MATRIX5 mymatrix = [[0.4,0.3,0.2,0,0],[0.3,0.2,0.1,0,0],[0.2,0.1,1,-0.1,-0.2],[0,0,-0.1,-0.2,-0.3],[0,0,-0.2,-0.3,-0.4]];
+    TRANSFORM monimage mymatrix
 ```
+Le compilateur va générer le code suivant :
+```
+import cv2
+import os
+import numpy as np
+from matplotlib import pyplot as plt
+
+LOAD_SRC = "/Users/michaelcaraccio/Desktop/images/sources"
+SAVE_SRC = "/Users/michaelcaraccio/Desktop/images/dest"
+
+compteur = 1
+
+for filename in os.listdir(LOAD_SRC):
+	img = cv2.imread("/Users/michaelcaraccio/Desktop/images/sources/" + filename)
+	kernel = np.matrix('[[0.4,0.3,0.2,0,0],[0.3,0.2,0.1,0,0],[0.2,0.1,1,-0.1,-0.2],[0,0,-0.1,-0.2,-0.3],[0,0,-0.2,-0.3,-0.4]]')
+	img = cv2.filter2D(img, -1, kernel)
+	cv2.imwrite("/Users/michaelcaraccio/Desktop/images/dest/" + filename, img)
+```
+
+Si l'on compile le fichier python et que l'on l'execute, nous obtenons ceci :
+![image result 3](https://raw.githubusercontent.com/MichaelCaraccio/CompilerForPythonOpenCV/master/images/compilation_result_3.png)
+
+
 

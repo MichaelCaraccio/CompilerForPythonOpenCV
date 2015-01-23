@@ -1,10 +1,11 @@
-import CompilerForPythonOpenCV.AST as AST
-from CompilerForPythonOpenCV.AST import addToClass
+import AST as AST
+from AST import addToClass
 
 fileName = ''
+pathLoad = ''
+pathDest = ''
 isDisplayed = False
 tabulation = ""
-compteur = 0
 matrix = ""
 
 
@@ -41,21 +42,25 @@ def compile(self):
 
 @addToClass(AST.LoadNode)
 def compile(self):
-    global fileName
+    global fileName, pathLoad
     pythonCode = ""
     pythonCode += "import cv2\n"
     pythonCode += "import os\n"
-    pythonCode += "from matplotlib import pyplot as plt\n"
-    file = str(self.children[1]).replace('\n','')
-    pythonCode += "LOAD_SRC=\""+file+ "\"\n"
+    pythonCode += "from matplotlib import pyplot as plt\n\n"
+    file = str(self.children[1]).replace('\n', '')
+    pythonCode += "LOAD_SRC = \"" + file + "\"\n"
     fileName = pythonCode
+    pathLoad = file
     return pythonCode
 
 @addToClass(AST.SaveNode)
 def compile(self):
+    global pathDest
     pythonCode = ""
-    file = str(self.children[1]).replace('\n','')
-    pythonCode += "SAVE_SRC=\""+file+ "\"\n"
+    file = str(self.children[1]).replace('\n', '')
+    pythonCode += "SAVE_SRC = \"" + file + "\"\n\n"
+    pathDest = file
+
     return pythonCode
 
 @addToClass(AST.ForNode)
@@ -64,17 +69,18 @@ def compile(self):
     global tabulation
     fileName = 'filename'
     pythonCode = ""
+    pythonCode += "compteur = 1\n\n"
     pythonCode += tabulation.join("for filename in os.listdir(LOAD_SRC):\n")
-    tabulation = tabulation+'\t'
+    tabulation = tabulation + '\t'
     return pythonCode
 
 @addToClass(AST.IfNode)
 def compile(self):
     pythonCode = ""
     global tabulation
-    extension = str(self.children[0].children[1]).replace('\n','')
-    pythonCode += str(tabulation)+"if filename.endswith(""):\n"
-    tabulation= tabulation+'\t'
+    extension = str(self.children[0].children[1]).replace('\n', '')
+    pythonCode += str(tabulation) + "if filename.endswith(""):\n"
+    tabulation= tabulation + '\t'
     return pythonCode
 
 @addToClass(AST.MatrixNode3)
@@ -92,8 +98,8 @@ def compile(self):
 @addToClass(AST.TransformNode)
 def compile(self):
     global matrix
-    img = "img = cv2.imread('"+fileName+"')"
-    kernel = "kernel = np.matrix("+str(matrix).replace('\n','')+ ")"
+    img = "img = cv2.imread('" + fileName + "')\n"
+    kernel = "kernel = np.matrix(" + str(matrix).replace('\n', '') + ")"
     dest = "cv2.filter2D(img,-1,kernel)"
     pythonCode = img + "\n" + kernel + "\n" + dest + "\n"
     return pythonCode
@@ -102,22 +108,34 @@ def compile(self):
 def compile(self):
     global isDisplayed
     global fileName
+    global pathLoad
     isDisplayed = True
-    compteur = 1
+
     pythonCode = ""
-    pythonCode += str(tabulation)+"plt.subplot(2,3,"+str(compteur)+"),plt.imshow("+str(fileName)+"),plt.title("+str(compteur)+")\n"
-    pythonCode += str(tabulation)+"plt.xticks([]),plt.yticks([])\n"
+    pythonCode += str(tabulation) + "img = cv2.imread(\"" + pathLoad + "/" + "\" + " + str(fileName) + ")\n"
+    pythonCode += str(tabulation) + "b, g, r = cv2.split(img)     # get b, g, r\n"
+    pythonCode += str(tabulation) + "img = cv2.merge([r, g, b])     # switch it to rgb\n"
+
+    pythonCode += str(tabulation) + "plt.subplot(2, 3, compteur)\n"
+    pythonCode += str(tabulation) + "plt.imshow(img)\n"
+    pythonCode += str(tabulation) + "plt.title(filename)\n"
+
+    pythonCode += str(tabulation) + "plt.xticks([])\n"
+    pythonCode += str(tabulation) + "plt.yticks([])\n"
+
+    pythonCode += str(tabulation) + "compteur += 1\n"
+
     return pythonCode
 
 
 if __name__ == "__main__":
-    from CompilerForPythonOpenCV.parser import parse
+    from parser import parse
     import sys
     import os
     prog = open(sys.argv[1]).read()
     ast = parse(prog)
     compiled = ast.compile()
-    name = os.path.splitext(sys.argv[1])[0]+'.py'
+    name = os.path.splitext(sys.argv[1])[0] + '.py'
     outfile = open(name, 'w')
     outfile.write(compiled)
     outfile.close()

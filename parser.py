@@ -1,8 +1,8 @@
 import ply.yacc as yacc
 
-import CompilerForPythonOpenCV.AST as AST
+import AST as AST
 
-from CompilerForPythonOpenCV.lex import tokens
+from lex import tokens
 
 def p_programme_statement(p):
 	''' programme : statement '''

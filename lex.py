@@ -42,7 +42,8 @@ def t_MATRIX4FORM(t):
     return t
 
 def t_FILE(t):
-    r'\w[:][\\/].([A-Za-z0-9/\\]+)'
+    #r'\w[:][\\/].([A-Za-z0-9/\\]+)'
+    r'[\\/].([A-Za-z0-9/\\]+)'
     return t
 
 def t_IDENTIFIER(t):

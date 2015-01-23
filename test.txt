@@ -1,7 +1,4 @@
-LOAD_SRC monfichier C:/csa2;
-SAVE_DEST monfichier C:/csa;
+LOAD_SRC monfichier  /Users/michaelcaraccio/Desktop/images/sources;
+SAVE_DEST monfichier /Users/michaelcaraccio/Desktop/images/dest;
 FOR files2 IN mondossier;
-    IF EXTENSION files2 == jpeg;
-        DISPLAY file2;
-MATRIX3 blup = [{0,0,1},{0,0,-1},{0,2,3}];
-TRANSFORM monfichier blup
+        DISPLAY files2

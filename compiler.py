@@ -7,6 +7,7 @@ pathDest = ''
 isDisplayed = False
 tabulation = ""
 matrix = ""
+currentFolder = ''
 
 
 # noeud de programme
@@ -42,25 +43,34 @@ def compile(self):
 
 @addToClass(AST.LoadNode)
 def compile(self):
+
     global fileName, pathLoad
+
     pythonCode = ""
     pythonCode += "import cv2\n"
     pythonCode += "import os\n"
+    pythonCode += "import numpy as np\n"
     pythonCode += "from matplotlib import pyplot as plt\n\n"
+
     file = str(self.children[1]).replace('\n', '')
     pythonCode += "LOAD_SRC = \"" + file + "\"\n"
+
     fileName = pythonCode
     pathLoad = file
+
     return pythonCode
 
 @addToClass(AST.SaveNode)
 def compile(self):
+
     global pathDest
+
     pythonCode = ""
+
     file = str(self.children[1]).replace('\n', '')
     pythonCode += "SAVE_SRC = \"" + file + "\"\n\n"
-    pathDest = file
 
+    pathDest = file
     return pythonCode
 
 @addToClass(AST.ForNode)
@@ -79,7 +89,7 @@ def compile(self):
     pythonCode = ""
     global tabulation
     extension = str(self.children[0].children[1]).replace('\n', '')
-    pythonCode += str(tabulation) + "if filename.endswith(""):\n"
+    pythonCode += str(tabulation) + "if filename.endswith(" + extension + "):\n"
     tabulation= tabulation + '\t'
     return pythonCode
 
@@ -97,22 +107,25 @@ def compile(self):
 
 @addToClass(AST.TransformNode)
 def compile(self):
-    global matrix
-    img = "img = cv2.imread('" + fileName + "')\n"
+    global matrix, currentFolder
+    img = "img = cv2.imread(\"" + pathLoad + "/" + "\" + " + fileName + ")\n"
     kernel = "kernel = np.matrix(" + str(matrix).replace('\n', '') + ")"
-    dest = "cv2.filter2D(img,-1,kernel)"
-    pythonCode = img + "\n" + kernel + "\n" + dest + "\n"
+    dest = "img = cv2.filter2D(img, -1, kernel)"
+    write = "cv2.imwrite(\"" + pathDest + "/" + "\" + " + fileName + ", img)\n"
+    pythonCode = str(tabulation) + img + str(tabulation) + kernel + "\n" + str(tabulation) + dest + "\n" + str(tabulation) + write + "\n"
+    currentFolder = pathDest
     return pythonCode
 
 @addToClass(AST.DisplayNode)
 def compile(self):
-    global isDisplayed
-    global fileName
-    global pathLoad
+    global isDisplayed, fileName, pathLoad, currentFolder
     isDisplayed = True
 
+    if(currentFolder == ''):
+        currentFolder = pathLoad
+
     pythonCode = ""
-    pythonCode += str(tabulation) + "img = cv2.imread(\"" + pathLoad + "/" + "\" + " + str(fileName) + ")\n"
+    pythonCode += str(tabulation) + "img = cv2.imread(\"" + currentFolder + "/" + "\" + " + str(fileName) + ")\n"
     pythonCode += str(tabulation) + "b, g, r = cv2.split(img)     # get b, g, r\n"
     pythonCode += str(tabulation) + "img = cv2.merge([r, g, b])     # switch it to rgb\n"
 

@@ -73,7 +73,7 @@ def p_expression_num(p):
     p[0] = AST.TokenNode(p[1])
 
 def p_error(p):
-    print ("Syntax error in line %d" % p.lineno)
+    print("Syntax error in line %d" % p.lineno)
     yacc.errok()
 
 def parse(program):
@@ -87,6 +87,6 @@ if __name__ == "__main__":
     prog = open(sys.argv[1]).read()
     result = yacc.parse(prog)
     graph = result.makegraphicaltree()
-    name = os.path.splitext(sys.argv[1])[0]+'-ast.pdf'
+    name = os.path.splitext(sys.argv[1])[0] + '-ast.pdf'
     graph.write_pdf(name)
     print("wrote ast to ", name)

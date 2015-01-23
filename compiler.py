@@ -55,7 +55,7 @@ def compile(self):
     file = str(self.children[1]).replace('\n', '')
     pythonCode += "LOAD_SRC = \"" + file + "\"\n"
 
-    fileName = pythonCode
+    fileName = 'filename'
     pathLoad = file
 
     return pythonCode
@@ -97,13 +97,13 @@ def compile(self):
 def compile(self):
     global matrix
     matrix = self.children[0].children[1]
-    return ""
+    return ''
 
-@addToClass(AST.MatrixNode4)
+@addToClass(AST.MatrixNode5)
 def compile(self):
     global matrix
     matrix = self.children[0].children[1]
-    return ""
+    return ''
 
 @addToClass(AST.TransformNode)
 def compile(self):

@@ -11,19 +11,19 @@ reserved_words = (
     'extension',
     'transform',
     'matrix3',
-    'matrix4'
+    'matrix5'
 )
 
 tokens = (
          'IDENTIFIER',
          'MATRIX3FORM',
-         'MATRIX4FORM',
+         'MATRIX5FORM',
          'FILE',
          'COMPARE',
          'EGAL'
          ) + tuple(map(lambda s: s.upper(), reserved_words))
 
-literals = '();{}://'
+literals = '();{}:.//'
 
 def t_COMPARE(t):
     r'=='
@@ -37,13 +37,13 @@ def t_MATRIX3FORM(t):
     r'\[(\[([ ]?\-?[ ]?\d+\.?[ ]?\d*),([ ]?\-?[ ]?\d+\.?[ ]?\d*),([ ]?\-?[ ]?\d+\.?[ ]?\d*)\]\,?){3}\]'
     return t
 
-def t_MATRIX4FORM(t):
-    r'\[(\[\[([ ]?\-?[ ]?\d+\.?[ ]?\d*),\[([ ]?\-?[ ]?\d+\.?[ ]?\d*),\[([ ]?\-?[ ]?\d+\.?[ ]?\d*),\[([ ]?\-?[ ]?\d+\.?[ ]?\d*)\]\,?){4}\]'
+def t_MATRIX5FORM(t):
+    r'\[(\[([ ]?\-?[ ]?\d+\.?[ ]?\d*)[ ]?,[ ]?([ ]?\-?[ ]?\d+\.?[ ]?\d*),[ ]?([ ]?\-?[ ]?\d+\.?[ ]?\d*),[ ]?([ ]?\-?[ ]?\d+\.?[ ]?\d*),([ ]?\-?[ ]?\d+\.?[ ]?\d*)\]\,?){5}\]'
     return t
 
 def t_FILE(t):
     #r'\w[:][\\/].([A-Za-z0-9/\\]+)'
-    r'[\\/].([A-Za-z0-9/\\]+)'
+    r'[\\/].([A-Za-z0-9/\\_. ]+)'
     return t
 
 def t_IDENTIFIER(t):

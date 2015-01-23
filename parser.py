@@ -17,7 +17,7 @@ def p_statement(p):
         | load
         | save
         | matrix3
-        | matrix4
+        | matrix5
         | transform
         | display
         | if'''
@@ -25,11 +25,11 @@ def p_statement(p):
 
 def p_load(p):
     '''load : LOAD_SRC expression FILE'''
-    p[0] = AST.LoadNode([p[2],AST.FileNode(p[3])])
+    p[0] = AST.LoadNode([p[2], AST.FileNode(p[3])])
 
 def p_save(p):
     '''save : SAVE_DEST expression FILE'''
-    p[0] = AST.SaveNode([p[2],AST.FileNode(p[3])])
+    p[0] = AST.SaveNode([p[2], AST.FileNode(p[3])])
 
 def p_for(p):
     '''for : FOR expression IN expression'''
@@ -41,15 +41,15 @@ def p_matrix3(p):
 
 def p_matrix3_assign(p):
     '''matrix3_assign : MATRIX3 IDENTIFIER EGAL MATRIX3FORM '''
-    p[0] = AST.AssignNode([AST.TokenNode(p[2]),AST.TokenNode(p[4])])
+    p[0] = AST.AssignNode([AST.TokenNode(p[2]), AST.TokenNode(p[4])])
 
-def p_matrix4(p):
-    '''matrix4 : matrix4_assign'''
-    p[0] = AST.MatrixNode4(p[1])
+def p_matrix5(p):
+    '''matrix5 : matrix5_assign'''
+    p[0] = AST.MatrixNode5(p[1])
 
-def p_matrix4_assign(p):
-    '''matrix4_assign : MATRIX4 IDENTIFIER EGAL MATRIX4FORM '''
-    p[0] = AST.AssignNode([AST.TokenNode(p[2]),AST.TokenNode(p[4])])
+def p_matrix5_assign(p):
+    '''matrix5_assign : MATRIX5 IDENTIFIER EGAL MATRIX5FORM '''
+    p[0] = AST.AssignNode([AST.TokenNode(p[2]), AST.TokenNode(p[4])])
 
 def p_transform(p):
     '''transform : TRANSFORM expression expression'''

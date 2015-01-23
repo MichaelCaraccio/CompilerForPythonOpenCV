@@ -1,7 +1,6 @@
-__author__ = 'daniel.decarval'
 
-import CompilerForPythonOpenCV.AST as AST
-from CompilerForPythonOpenCV.AST import addToClass
+import AST as AST
+from AST import addToClass
 
 @addToClass(AST.Node)
 def thread(self, lastNode):
@@ -16,7 +15,7 @@ def thread(tree):
     return entry
 
 if __name__ == "__main__":
-    from CompilerForPythonOpenCV.parser import parse
+    from parser import parse
     import sys, os
     prog = open(sys.argv[1]).read()
     ast = parse(prog)

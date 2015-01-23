@@ -121,8 +121,8 @@ class ForNode(Node):
 class MatrixNode3(Node):
     type = 'matrix3'
 
-class MatrixNode4(Node):
-    type = 'matrix4'
+class MatrixNode5(Node):
+    type = 'matrix5'
 
 class TransformNode(Node):
     type = 'transform'
@@ -158,6 +158,6 @@ def addToClass(cls):
     Je ne sais pas s'il existe un moyen d'éviter ce phénomène.
     '''
     def decorator(func):
-        setattr(cls,func.__name__,func)
+        setattr(cls, func.__name__, func)
         return func
     return decorator

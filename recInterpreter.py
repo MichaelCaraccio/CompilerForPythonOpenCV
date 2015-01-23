@@ -1,5 +1,5 @@
-import CompilerForPythonOpenCV.AST as AST
-from CompilerForPythonOpenCV.AST import addToClass
+import AST as AST
+from AST import addToClass
 from functools import reduce
 
 
@@ -61,9 +61,13 @@ def execute(self):
 def execute(self):
     return
 
+@addToClass(AST.MatrixNode5)
+def execute(self):
+    return
+
 
 if __name__ == "__main__":
-    from CompilerForPythonOpenCV.parser import parse
+    from parser import parse
     import sys
     prog = open(sys.argv[1]).read()
     ast = parse(prog)

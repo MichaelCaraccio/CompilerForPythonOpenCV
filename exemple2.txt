@@ -3,6 +3,6 @@ SAVE_DEST dossierDestination /Users/michaelcaraccio/Desktop/images/dest;
 
 for file in mondossier;
     if EXTENSION file == jpg;
-		matrix3 blup = [[-1, -1, -1],[-1, 8, -1],[-1, -1, -1]];
-		TRANSFORM file matrice3x3;
+		MATRIX3 mymatrix = [[-1, -1, -1],[-1, 8, -1],[-1, -1, -1]];
+		TRANSFORM file mymatrix;
         DISPLAY file

@@ -47,7 +47,7 @@ for file in mondossier;
     if EXTENSION file == jpg;
 		matrix3 blup = [[-1, -1, -1],[-1, 8, -1],[-1, -1, -1]];
 		TRANSFORM file matrice3x3;
-        	DISPLAY file
+		DISPLAY file
 ```
 
 Le compilateur va générer le code suivant :
